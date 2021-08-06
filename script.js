@@ -7,6 +7,7 @@ let playGuessNumber = function () {
   let getRandom = function () {
     randomNumber = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
     console.log('randomNumber: ', randomNumber);
+    return randomNumber;
   };
 
   getRandom();
@@ -15,18 +16,27 @@ let playGuessNumber = function () {
 
     let userNumber = +prompt('Угадай число от 1 до 100');
 
+    let stop = function () {
+      userNumber = undefined;
+      return;
+    };
+
     let check = function () {
       if (isNaN(userNumber)) {
         userNumber = +prompt('Виедите число');
         check();
       } else if (userNumber === +null) {
         alert('Игра закончена.');
-        playGuessNumber();
+        stop();
+
       }
     };
     check();
 
     let compare = function () {
+      if (userNumber === undefined) {
+        return;
+      }
       if (userNumber === randomNumber) {
         alert('Поздравляю, Вы угадали!!!');
       }
@@ -39,7 +49,6 @@ let playGuessNumber = function () {
         userNumber = +prompt('Загаданное число больше. Введите новый вариант ответа.');
         check();
         compare();
-        
       }
     };
     compare();
